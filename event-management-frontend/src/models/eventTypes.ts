@@ -1,11 +1,11 @@
 export interface EventFormData {
-    name: string;
-    startDate: Date;
-    endDate: Date;
-    location: string;
-    thumbnail?: FileList;
-  }
-
+  name: string;
+  startDate: string;
+  endDate: string;
+  location: string;
+  status: "Ongoing" | "Completed"
+  thumbnail?: FileList | null;
+}
 export interface Event {
   id: number;
   name: string;
