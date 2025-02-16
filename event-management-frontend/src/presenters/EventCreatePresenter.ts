@@ -54,10 +54,8 @@ export const useEventCreatePresenter = () => {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["events"] });
-      history.push("/events");
-      reset();
-      setPreviewUrl(null);
+      queryClient.invalidateQueries({ queryKey: ['events'] });
+      history.push('/events');
     },
   });
 

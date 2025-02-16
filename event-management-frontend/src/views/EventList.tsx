@@ -217,11 +217,11 @@ const EventList = () => {
           {paginatedData.map((event:any) => (
             <Grid item xs={12} sm={6} md={4} key={event.id}>
               <Card>
-                {event.thumbnailUrl && (
+                {event.thumbnail && (
                   <CardMedia
                     component="img"
                     height="200"
-                    image={event.thumbnailUrl}
+                    image={event.thumbnail}
                     alt={event.name}
                     style={{ objectFit: "cover" }}
                   />

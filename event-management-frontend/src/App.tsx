@@ -8,7 +8,7 @@ import Login from './views/LoginView';
 import Register from './views/RegisterForm';
 import EventList from './views/EventList';
 import EventCreate from './views/EventCreate';
-import EventUpdate from './views/EventUpdate';
+import EventUpdateView from './views/EventUpdateView';
 import EventDetails from './views/EventDetails';
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -30,7 +30,7 @@ function App() {
             <Route path="/events" exact component={EventList} />
             <ProtectedRoute exact path="/events/create" component={EventCreate} />
             <Route path="/events/details/:id" component={EventDetails} />
-            <ProtectedRoute path="/events/update/:id" component={EventUpdate} />
+            <ProtectedRoute path="/events/update/:id" component={EventUpdateView} />
           </Switch>
         </Layout>
         </Router>

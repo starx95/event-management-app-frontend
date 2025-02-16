@@ -3,8 +3,8 @@ export interface EventFormData {
   startDate: string;
   endDate: string;
   location: string;
-  status: "Ongoing" | "Completed"
-  thumbnail?: FileList | null;
+  status: "Ongoing" | "Completed";
+  thumbnailUrl?: FileList | null | undefined;
 }
 export interface Event {
   id: number;

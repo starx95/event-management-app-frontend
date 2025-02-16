@@ -18,18 +18,7 @@ const schema = yup.object().shape({
       return !isNaN(startDate) && !isNaN(endDate) && endDate >= startDate;
     }),
   location: yup.string().required(),
-  status: yup.string().oneOf(["Ongoing", "Completed"]).required(),
-  thumbnail: yup
-    .mixed<FileList>()
-    .test("fileSize", "File too large (max 5MB)", (value) => {
-      if (!value || !(value instanceof FileList) || value.length === 0) return true; // No file uploaded, allow it
-      return value[0].size <= 5 * 1024 * 1024; // 5MB limit
-    })
-    .test("fileType", "Only JPG, PNG, and GIF files are allowed", (value) => {
-      if (!value || !(value instanceof FileList) || value.length === 0) return true; // No file uploaded, allow it
-      return ["image/jpeg", "image/png", "image/gif"].includes(value[0].type);
-    })
-    .nullable(),
+  status: yup.string().oneOf(["Ongoing", "Completed"]).required()
 });
 
 interface EventFormProps {
@@ -117,7 +106,7 @@ const EventForm: React.FC<EventFormProps> = ({ onSubmit, errors, event, previewU
       )}
 
       <input
-        {...register('thumbnail')}
+        {...register('thumbnailUrl')}
         type="file"
         accept="image/*"
         onChange={handleImageChange}
