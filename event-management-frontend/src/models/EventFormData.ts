@@ -3,6 +3,6 @@ export interface EventFormData {
     startDate: Date;
     endDate: Date;
     location: string;
-    thumbnail?: FileList | null;
+    thumbnailUrl: string ;
   }
   

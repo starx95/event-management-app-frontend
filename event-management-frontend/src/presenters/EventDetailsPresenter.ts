@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Event } from "../models/eventTypes";
+import { Event, EventDetailsType } from "../models/eventTypes";
 import { fetchEventDetails, deleteEvent } from "../api/api";
 import { useHistory } from "react-router-dom";
 
@@ -7,7 +7,7 @@ export const useEventDetailsPresenter = (id: string | undefined) => {
   const history = useHistory();
   const isLoggedIn = !!localStorage.getItem("token");
 
-  const { data: event, isLoading, error } = useQuery<Event, Error | null>({
+  const { data: event, isLoading, error } = useQuery<EventDetailsType, Error | null>({
     queryKey: ["eventDetails", id],
     queryFn: () => fetchEventDetails(id!),
     enabled: !!id,

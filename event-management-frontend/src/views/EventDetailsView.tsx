@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { Container, Typography, Card, CardContent, Button, CardMedia } from "@mui/material";
-import { Event } from "../models/eventTypes";
+import { Event, EventDetailsType } from "../models/eventTypes";
 
 interface EventDetailsViewProps {
-  event?: Event;
+  event?: EventDetailsType;
   isLoading: boolean;
   error: Error | null;
   isLoggedIn: boolean;
@@ -21,7 +21,7 @@ const EventDetailsView: React.FC<EventDetailsViewProps> = ({ event, isLoading, e
           <CardMedia
             component="img"
             height="250"
-            image={event.thumbnailUrl.startsWith("http") ? event.thumbnailUrl : `http://localhost:3000/${event.thumbnailUrl.replace(/\\/g, "/")}`}
+            image={ `http://localhost:3000/${event.thumbnailUrl}`}
             alt={event.name}
             sx={{ objectFit: "cover", borderRadius: 2 }}
           />

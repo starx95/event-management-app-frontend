@@ -4,7 +4,7 @@ export interface EventFormData {
   endDate: string;
   location: string;
   status: "Ongoing" | "Completed";
-  thumbnailUrl?: FileList | null | undefined;
+  thumbnailUrl?: FileList;
 }
 export interface Event {
   id: number;
@@ -13,7 +13,7 @@ export interface Event {
   endDate: string;
   location: string;
   status: "Ongoing" | "Completed";
-  thumbnailUrl: string;
+  thumbnailUrl: FileList;
 }
 export interface EventDetailsType { 
     id: number;

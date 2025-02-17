@@ -13,9 +13,9 @@ export const fetchEventDetails = async (id: string): Promise<Event> => {
 
 export const updateEvent = async (id: string, data: EventFormData) => {
   const formData = new FormData();
-  console.log('data: ',data);
+
   Object.keys(data).forEach((key) => {
-    if (key === "thumbnail" && data.thumbnailUrl?.[0]) {
+    if (key === "thumbnailUrl" && data.thumbnailUrl?.[0]) {
       formData.append(key, data.thumbnailUrl[0]);
     } else if (key === "startDate" || key === "endDate") {
       formData.append(key, new Date(data[key as keyof EventFormData] as string).toISOString());
@@ -25,7 +25,6 @@ export const updateEvent = async (id: string, data: EventFormData) => {
   });
 
   return axios.patch(`${API_URL}/${id}`, formData, {
-    withCredentials: true,
     headers: {
       "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${localStorage.getItem("token")}`,

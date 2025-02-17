@@ -3,8 +3,7 @@ import { Container, TextField, Button, Typography, CardMedia } from "@mui/materi
 import { useEventCreatePresenter } from "../presenters/EventCreatePresenter";
 
 const EventCreate = () => {
-  const { register, handleSubmit, errors, onSubmit, handleImageChange, previewUrl } =
-    useEventCreatePresenter();
+  const { register, handleSubmit, errors, onSubmit, handleImageChange, previewUrl } = useEventCreatePresenter();
 
   return (
     <Container maxWidth="sm">
@@ -59,7 +58,7 @@ const EventCreate = () => {
           />
         )}
 
-        <input {...register("thumbnail")} type="file" accept="image/*" onChange={handleImageChange} />
+        <input {...register("thumbnailUrl")} type="file" accept="image/*" onChange={handleImageChange} />
 
         <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: "20px" }}>
           Create Event

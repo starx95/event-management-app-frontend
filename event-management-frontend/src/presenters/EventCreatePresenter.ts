@@ -20,13 +20,14 @@ const schema = yup.object().shape({
     .required("End date is required")
     .min(yup.ref("startDate"), "End date can't be before start date"),
   location: yup.string().required("Location is required"),
+  thumbnailUrl: yup.string().required("Thumbnail is required"),
 });
 
 export const useEventCreatePresenter = () => {
   const history = useHistory();
   const queryClient = useQueryClient();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { register, handleSubmit, formState: { errors }, reset } = useForm<EventFormData>({
     resolver: yupResolver(schema),
   });
@@ -35,9 +36,13 @@ export const useEventCreatePresenter = () => {
     mutationFn: async (data: EventFormData) => {
       const formData = new FormData();
       Object.keys(data).forEach((key) => {
-        if (key === "thumbnail" && data.thumbnail?.[0]) {
-          formData.append(key, data.thumbnail[0]);
-        } else if (key === "startDate" || key === "endDate") {
+        if (key === "thumbnail" ) {
+          if (data.thumbnailUrl.length > 0) {
+            const file = data.thumbnailUrl[0]; 
+            formData.append("thumbnailUrl", file); 
+          }
+        }
+      if (key === "startDate" || key === "endDate") {
             const isoDate = new Date(data[key as keyof EventFormData] as string).toISOString();
             formData.append(key, isoDate);
           } else {
@@ -46,7 +51,6 @@ export const useEventCreatePresenter = () => {
       });
 
       return axios.post("http://localhost:3000/events", formData, {
-        withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -54,16 +58,20 @@ export const useEventCreatePresenter = () => {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['events'] });
-      history.push('/events');
+      queryClient.invalidateQueries({ queryKey: ["events"] });
+      history.push("/events");
+      reset();
+      setPreviewUrl(null);
     },
   });
 
   const onSubmit = (data: EventFormData) => createEventMutation.mutate(data);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      setPreviewUrl(URL.createObjectURL(event.target.files[0]));
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      setSelectedFile(file);
+      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 

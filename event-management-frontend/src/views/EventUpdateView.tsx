@@ -3,7 +3,7 @@ import { Container, Typography, TextField, Button, Select, MenuItem, FormControl
 import { useEventUpdatePresenter } from "../presenters/EventUpdatePresenter";
 
 const EventUpdateView: React.FC = () => {
-  const { register, handleSubmit, errors, isLoading, onSubmit, handleImageChange, previewUrl, history } = useEventUpdatePresenter();
+  const { register, handleSubmit, errors, isLoading, onSubmit, previewUrl, history } = useEventUpdatePresenter();
 
   if (isLoading) return <Typography>Loading...</Typography>;
 
@@ -28,7 +28,11 @@ const EventUpdateView: React.FC = () => {
 
         {previewUrl && <CardMedia component="img" height="250" image={previewUrl} alt="Thumbnail Preview" sx={{ objectFit: "cover", borderRadius: 2, mt: 2 }} />}
 
-        <input {...register("thumbnailUrl")} type="file" accept="image/*" onChange={handleImageChange} />
+        <input
+          {...register('thumbnailUrl')}
+          type="file"
+          accept="image/*"
+        />
 
         <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
           Update Event
